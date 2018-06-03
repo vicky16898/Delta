@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MatchFixtures</string>
+    <string name="enter_the_name_of_the_second_team">Enter the name of the second team</string>
+    <string name="enter_the_name_of_the_first_team">Enter the name of the first team</string>
+    <string name="match_info">MATCH INFO</string>
+    <string name="enter_the_date">Select Date</string>
+    <string name="enter_the_venue">Enter the venue</string>
+    <string name="submit">SUBMIT</string>
+    <string name="select_time">Select Time</string>
+</resources>
