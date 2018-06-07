@@ -31,6 +31,7 @@ public class Main2Activity extends AppCompatActivity {
     public ArrayList<SubSpecific> infos;
     public ListView list2;
     public int flag;
+    private String ButtonId;
 
 
     @Override
@@ -42,6 +43,8 @@ public class Main2Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         idData = intent.getExtras().getString("idKey");
+        ButtonId = intent.getExtras().getString("buttonid");
+
 
 
         infos = new ArrayList<SubSpecific>();
@@ -146,111 +149,200 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-        if (flag != 0) {
+        if(ButtonId.equals("1")) {
 
 
-            for (int j = 0; j < flag; j++) {
+            if (flag != 0) {
 
 
-                if ((name1.get(j).equals(name1.get(flag))) || (name2.get(j).equals(name1.get(flag)))) {
+                for (int j = 0; j < flag; j++) {
 
 
-                    customAdapter.add(new SubSpecific(
-                            id.get(j),
-                            name1.get(j),
-                            name2.get(j),
-                            date.get(j),
-                            time.get(j),
-                            venue.get(j),
-                            image1.get(j),
-                            image2.get(j)
+                    if ((name1.get(j).equals(name1.get(flag))) || (name2.get(j).equals(name1.get(flag)))) {
 
 
-                    ));
+                        customAdapter.add(new SubSpecific(
+                                id.get(j),
+                                name1.get(j),
+                                name2.get(j),
+                                date.get(j),
+                                time.get(j),
+                                venue.get(j),
+                                image1.get(j),
+                                image2.get(j)
 
-                    list2.setAdapter(customAdapter);
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
 
 
+                    }
+
+
+                }
+                for (int k = (flag + 1); k < res.getCount(); k++) {
+
+
+                    if ((name1.get(k).equals(name1.get(flag))) || (name2.get(k).equals(name1.get(flag)))) {
+
+
+                        customAdapter.add(new SubSpecific(
+                                id.get(k),
+                                name1.get(k),
+                                name2.get(k),
+                                date.get(k),
+                                time.get(k),
+                                venue.get(k),
+                                image1.get(k),
+                                image2.get(k)
+
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
+
+
+                    }
+
+
+                }
+
+
+            } else {
+
+
+                for (int wolf = 1; wolf < res.getCount(); wolf++) {
+
+
+                    if ((name1.get(wolf).equals(name1.get(flag))) || (name2.get(wolf).equals(name1.get(flag)))) {
+
+
+                        customAdapter.add(new SubSpecific(
+                                id.get(wolf),
+                                name1.get(wolf),
+                                name2.get(wolf),
+                                date.get(wolf),
+                                time.get(wolf),
+                                venue.get(wolf),
+                                image1.get(wolf),
+                                image2.get(wolf)
+
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
+
+
+                    }
 
 
                 }
 
 
             }
-            for(int k=(flag+1);k<res.getCount();k++){
-
-
-                if ((name1.get(k).equals(name1.get(flag))) || (name2.get(k).equals(name1.get(flag)))) {
-
-
-                    customAdapter.add(new SubSpecific(
-                            id.get(k),
-                            name1.get(k),
-                            name2.get(k),
-                            date.get(k),
-                            time.get(k),
-                            venue.get(k),
-                            image1.get(k),
-                            image2.get(k)
-
-
-                    ));
-
-                    list2.setAdapter(customAdapter);
-
-
-
-
-                }
-
-
-
-
-
-            }
-
-
-
 
 
         }
 
 
-        else{
+
+        else if(ButtonId.equals("2")){
 
 
-            for(int wolf =1;wolf<res.getCount();wolf++){
+
+            if (flag != 0) {
 
 
-                if ((name1.get(wolf).equals(name1.get(flag))) || (name2.get(wolf).equals(name1.get(flag)))) {
+                for (int j = 0; j < flag; j++) {
 
 
-                    customAdapter.add(new SubSpecific(
-                            id.get(wolf),
-                            name1.get(wolf),
-                            name2.get(wolf),
-                            date.get(wolf),
-                            time.get(wolf),
-                            venue.get(wolf),
-                            image1.get(wolf),
-                            image2.get(wolf)
+                    if ((name1.get(j).equals(name2.get(flag))) || (name2.get(j).equals(name2.get(flag)))) {
 
 
-                    ));
+                        customAdapter.add(new SubSpecific(
+                                id.get(j),
+                                name1.get(j),
+                                name2.get(j),
+                                date.get(j),
+                                time.get(j),
+                                venue.get(j),
+                                image1.get(j),
+                                image2.get(j)
 
-                    list2.setAdapter(customAdapter);
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
 
 
+                    }
+
+
+                }
+                for (int k = (flag + 1); k < res.getCount(); k++) {
+
+
+                    if ((name1.get(k).equals(name2.get(flag))) || (name2.get(k).equals(name2.get(flag)))) {
+
+
+                        customAdapter.add(new SubSpecific(
+                                id.get(k),
+                                name1.get(k),
+                                name2.get(k),
+                                date.get(k),
+                                time.get(k),
+                                venue.get(k),
+                                image1.get(k),
+                                image2.get(k)
+
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
+
+
+                    }
 
 
                 }
 
 
+            } else {
 
 
+                for (int wolf = 1; wolf < res.getCount(); wolf++) {
+
+
+                    if ((name1.get(wolf).equals(name2.get(flag))) || (name2.get(wolf).equals(name2.get(flag)))) {
+
+
+                        customAdapter.add(new SubSpecific(
+                                id.get(wolf),
+                                name1.get(wolf),
+                                name2.get(wolf),
+                                date.get(wolf),
+                                time.get(wolf),
+                                venue.get(wolf),
+                                image1.get(wolf),
+                                image2.get(wolf)
+
+
+                        ));
+
+                        list2.setAdapter(customAdapter);
+
+
+                    }
+
+
+                }
 
 
             }
+
+
+
 
 
 

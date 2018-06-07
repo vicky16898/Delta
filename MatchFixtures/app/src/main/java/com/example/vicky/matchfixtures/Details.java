@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class Details extends ArrayAdapter<Subject>
 
                 Intent i = new Intent(context, Main2Activity.class);
                 i.putExtra("idKey", teams.get(position).id);
+                i.putExtra("buttonid" , String.valueOf(1));
                 context.startActivity(i);
 
 
@@ -73,9 +75,11 @@ public class Details extends ArrayAdapter<Subject>
             public void onClick(View v) {
 
 
-                    Intent i = new Intent(context, Main2Activity.class);
-                i.putExtra("idKey", teams.get(position).id);
-                    context.startActivity(i);
+                    Intent j = new Intent(context, Main2Activity.class);
+                j.putExtra("idKey", teams.get(position).id);
+                j.putExtra("buttonid" , String.valueOf(2));
+                    context.startActivity(j);
+                Log.d("button 2" , "check!");
 
 
             }
