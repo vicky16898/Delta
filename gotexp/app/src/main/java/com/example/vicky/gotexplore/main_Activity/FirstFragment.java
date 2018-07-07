@@ -111,273 +111,267 @@ public class FirstFragment extends Fragment {
 
                 present_datacheck = false;
 
+
+
                 final String check_content = ac.getText().toString();
 
-                String temp = capitalize(check_content);
+                if (check_content.equals("")) {
 
-
-                for (int store = 0; store < name_list.size(); store++) {
-
-
-                    if (temp.equals(name_list.get(store))) {
-
-
-                        db_recover = store;
-
-                        Log.e("db recover" , String.valueOf(db_recover));
-
-                        present_datacheck = true;
-
-
-
-                    }
+                    Toast.makeText(getContext(), "You did not type any name!",
+                            Toast.LENGTH_SHORT).show();
 
 
                 }
 
 
-                if (present_datacheck == true) {
+                else {
 
 
+                    String temp = capitalize(check_content);
 
 
-                    Cursor fetch = db.getPerson(db_recover);
-
-                    while (fetch.moveToNext()){
+                    for (int store = 0; store < name_list.size(); store++) {
 
 
-                        Intent i = new Intent(getContext(), Display_Activity.class);
-                        i.putExtra("name", fetch.getString(1));
-                        i.putExtra("spouse", fetch.getString(3));
-                        i.putExtra("house", fetch.getString(5));
-                        i.putExtra("culture", fetch.getString(4));
-                        i.putExtra("dob", fetch.getString(6));
-                        i.putExtra("dod", fetch.getString(7));
-                        i.putExtra("male", fetch.getString(2));
-                        i.putExtra("URL", fetch.getString(8));
-                        progressBar.setVisibility(View.GONE);
-                        startActivity(i);
+                        if (temp.equals(name_list.get(store))) {
 
+
+                            db_recover = store;
+
+                            Log.e("db recover", String.valueOf(db_recover));
+
+                            present_datacheck = true;
+
+
+                        }
 
 
                     }
 
 
+                    if (present_datacheck == true) {
 
 
+                        Cursor fetch = db.getPerson(db_recover);
 
-                } else
-                {
-
-
+                        while (fetch.moveToNext()) {
 
 
-
-                    counter = 0;
-                    dbCounter = 0;
-
-
-                network_check = haveNetworkConnection();
-                Log.d("network check", String.valueOf(network_check));
-
-
-                if (network_check == false) {
-
-                    Toast.makeText(getContext(), "No Internet Connection!",
-                            Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getContext(), Display_Activity.class);
+                            i.putExtra("name", fetch.getString(1));
+                            i.putExtra("spouse", fetch.getString(3));
+                            i.putExtra("house", fetch.getString(5));
+                            i.putExtra("culture", fetch.getString(4));
+                            i.putExtra("dob", fetch.getString(6));
+                            i.putExtra("dod", fetch.getString(7));
+                            i.putExtra("male", fetch.getString(2));
+                            i.putExtra("URL", fetch.getString(8));
+                            progressBar.setVisibility(View.GONE);
+                            startActivity(i);
 
 
-                } else {
-
-                    if (check_content.equals("")) {
-
-                        Toast.makeText(getContext(), "You did not type any name!",
-                                Toast.LENGTH_SHORT).show();
+                        }
 
 
                     } else {
 
 
-                        progressBar.setVisibility(View.VISIBLE);
+                        counter = 0;
+                        dbCounter = 0;
 
 
-                        ApiInterface apiService =
-                                ApiClient.getClient().create(ApiInterface.class);
+                        network_check = haveNetworkConnection();
+                        Log.d("network check", String.valueOf(network_check));
 
 
-                        Call<ModelResponse> call = apiService.getCharacterDetails(ac.getText().toString());
+                        if (network_check == false) {
+
+                            Toast.makeText(getContext(), "No Internet Connection!",
+                                    Toast.LENGTH_SHORT).show();
 
 
-                        call.enqueue(new Callback<ModelResponse>() {
-                            @Override
-                            public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
-
-                                model = new Model();
-                                Log.e("response", String.valueOf(response.body()));
-
-                                if (response.body() != null) {
-
-                                    model = response.body().getData();
-
-                                    String sex;
-                                    if (model.getMale() == false) {
-
-                                        sex = "Female";
-                                        Log.d("sex", sex);
-                                    } else {
-
-                                        sex = "Male";
-                                        Log.d("sex", sex);
-                                    }
-
-                                    String name, spouse, house, culture, image_link, birth, death = null;
+                        } else {
 
 
-                                    //data in model object;
-                                    name = String.valueOf(model.getName());
-                                    spouse = String.valueOf(model.getSpouse());
-                                    house = String.valueOf(model.getHouse());
-                                    culture = String.valueOf(model.getCulture());
-                                    image_link = String.valueOf(model.getImageLink());
-                                    Log.e("img", image_link);
-                                    birth = String.valueOf(model.getDateOfBirth());
-                                    death = String.valueOf(model.getDateOfDeath());
-                                    Log.d("death", death);
+                            progressBar.setVisibility(View.VISIBLE);
 
 
-                                    String check_type = capitalize(check_content);
-
-                                    Log.e("entered string", check_type);
-
-                                    Log.d("length", String.valueOf(name_list.size()));
-                                    Log.e("length of String", String.valueOf(check_type.length()));
-                                    Log.e("length of String", String.valueOf(name.length()));
+                            ApiInterface apiService =
+                                    ApiClient.getClient().create(ApiInterface.class);
 
 
-                                    for (int i = 0; i < name_list.size(); i++) {
+                            Call<ModelResponse> call = apiService.getCharacterDetails(ac.getText().toString());
 
-                                        String s = name_list.get(i);
-                                        Log.e("arraylist value", s);
 
-                                        if (s.equals(check_type)) {
+                            call.enqueue(new Callback<ModelResponse>() {
+                                @Override
+                                public void onResponse(Call<ModelResponse> call, Response<ModelResponse> response) {
 
-                                            counter = 1;
-                                            Log.d("loop run", name_list.get(i));
+                                    model = new Model();
+                                    Log.e("response", String.valueOf(response.body()));
 
+                                    if (response.body() != null) {
+
+                                        model = response.body().getData();
+
+                                        String sex;
+                                        if (model.getMale() == false) {
+
+                                            sex = "Female";
+                                            Log.d("sex", sex);
+                                        } else {
+
+                                            sex = "Male";
+                                            Log.d("sex", sex);
                                         }
 
-                                    }
-
-                                    Log.e("length", String.valueOf(name_list.size()));
+                                        String name, spouse, house, culture, image_link, birth, death = null;
 
 
-                                    Log.e("counter value", String.valueOf(counter));
+                                        //data in model object;
+                                        name = String.valueOf(model.getName());
+                                        spouse = String.valueOf(model.getSpouse());
+                                        house = String.valueOf(model.getHouse());
+                                        culture = String.valueOf(model.getCulture());
+                                        image_link = String.valueOf(model.getImageLink());
+                                        Log.e("img", image_link);
+                                        birth = String.valueOf(model.getDateOfBirth());
+                                        death = String.valueOf(model.getDateOfDeath());
+                                        Log.d("death", death);
 
 
-                                    if (counter == 0) {
+                                        String check_type = capitalize(check_content);
 
-
-                                        Log.e("if check", "check");
-
+                                        Log.e("entered string", check_type);
 
                                         Log.d("length", String.valueOf(name_list.size()));
+                                        Log.e("length of String", String.valueOf(check_type.length()));
+                                        Log.e("length of String", String.valueOf(name.length()));
 
-                                        name_list.add(name);
-                                        myAdapter.add(name);
 
-                                        Log.e("length", String.valueOf(name_list.size()));
-                                        for (int j = 0; j < name_list.size(); j++) {
+                                        for (int i = 0; i < name_list.size(); i++) {
 
-                                            Log.e("loop check for", "check");
+                                            String s = name_list.get(i);
+                                            Log.e("arraylist value", s);
 
-                                            for (int k = (j + 1); k < name_list.size(); k++) {
+                                            if (s.equals(check_type)) {
 
-                                                Log.e("loop check for", "check");
-                                                String name1 = name_list.get(j);
-                                                String name2 = name_list.get(k);
-
-                                                if (name1.equals(name2)) {
-
-                                                    Log.e("second if check", "check");
-                                                    name_list.remove(k);
-                                                    myAdapter.clear();
-                                                    myAdapter.addAll(name_list);
-                                                    dbCounter = 1;
-
-                                                }
-
+                                                counter = 1;
+                                                Log.d("loop run", name_list.get(i));
 
                                             }
+
                                         }
 
                                         Log.e("length", String.valueOf(name_list.size()));
 
 
+                                        Log.e("counter value", String.valueOf(counter));
+
+
+                                        if (counter == 0) {
+
+
+                                            Log.e("if check", "check");
+
+
+                                            Log.d("length", String.valueOf(name_list.size()));
+
+                                            name_list.add(name);
+                                            myAdapter.add(name);
+
+                                            Log.e("length", String.valueOf(name_list.size()));
+                                            for (int j = 0; j < name_list.size(); j++) {
+
+                                                Log.e("loop check for", "check");
+
+                                                for (int k = (j + 1); k < name_list.size(); k++) {
+
+                                                    Log.e("loop check for", "check");
+                                                    String name1 = name_list.get(j);
+                                                    String name2 = name_list.get(k);
+
+                                                    if (name1.equals(name2)) {
+
+                                                        Log.e("second if check", "check");
+                                                        name_list.remove(k);
+                                                        myAdapter.clear();
+                                                        myAdapter.addAll(name_list);
+                                                        dbCounter = 1;
+
+                                                    }
+
+
+                                                }
+                                            }
+
+                                            Log.e("length", String.valueOf(name_list.size()));
+
+
+                                        } else {
+
+                                            dbCounter = 1;
+                                        }
+
+                                        Log.e("db counter", String.valueOf(dbCounter));
+
+                                        if (dbCounter == 0) {
+
+                                            Log.e("name list size", String.valueOf(name_list.size()));
+                                            Log.v("id value of db", String.valueOf(_id));
+                                            background_task = new MyTask(getContext());
+                                            background_task.execute(String.valueOf(_id), name, sex, spouse, culture, house, birth, death, image_link);
+                                            _id++;
+                                            SharedPreferences pref = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = pref.edit();
+                                            editor.putInt("id_value", _id);
+                                            editor.commit();
+
+
+                                        }
+
+
+                                        Intent i = new Intent(getContext(), Display_Activity.class);
+                                        i.putExtra("name", name);
+                                        i.putExtra("spouse", spouse);
+                                        i.putExtra("house", house);
+                                        i.putExtra("culture", culture);
+                                        i.putExtra("dob", birth);
+                                        i.putExtra("dod", death);
+                                        i.putExtra("male", sex);
+                                        i.putExtra("URL", image_link);
+                                        progressBar.setVisibility(View.GONE);
+                                        startActivity(i);
+
+
+                                        Log.d("call check", "Success");
+
                                     } else {
 
-                                        dbCounter = 1;
-                                    }
+                                        progressBar.setVisibility(View.GONE);
 
-                                    Log.e("db counter", String.valueOf(dbCounter));
-
-                                    if (dbCounter == 0) {
-
-                                        Log.e("name list size" , String.valueOf(name_list.size()));
-                                        Log.v("id value of db", String.valueOf(_id));
-                                        background_task = new MyTask(getContext());
-                                        background_task.execute(String.valueOf(_id), name, sex, spouse, culture, house, birth, death , image_link);
-                                        _id++;
-                                        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = pref.edit();
-                                        editor.putInt("id_value", _id);
-                                        editor.commit();
+                                        Toast.makeText(getContext(), "No results found!",
+                                                Toast.LENGTH_SHORT).show();
 
 
                                     }
-
-
-                                    Intent i = new Intent(getContext(), Display_Activity.class);
-                                    i.putExtra("name", name);
-                                    i.putExtra("spouse", spouse);
-                                    i.putExtra("house", house);
-                                    i.putExtra("culture", culture);
-                                    i.putExtra("dob", birth);
-                                    i.putExtra("dod", death);
-                                    i.putExtra("male", sex);
-                                    i.putExtra("URL", image_link);
-                                    progressBar.setVisibility(View.GONE);
-                                    startActivity(i);
-
-
-                                    Log.d("call check", "Success");
-
-                                } else {
-
-                                    progressBar.setVisibility(View.GONE);
-
-                                    Toast.makeText(getContext(), "No results found!",
-                                            Toast.LENGTH_SHORT).show();
-
 
                                 }
 
-                            }
+                                @Override
+                                public void onFailure(Call<ModelResponse> call, Throwable t) {
 
-                            @Override
-                            public void onFailure(Call<ModelResponse> call, Throwable t) {
+                                    Log.e("call check", t.toString());
+                                }
+                            });
 
-                                Log.e("call check", t.toString());
-                            }
-                        });
+
+                        }
 
 
                     }
 
-
                 }
-
-
-            }
 
                 //end of button activity
             }
