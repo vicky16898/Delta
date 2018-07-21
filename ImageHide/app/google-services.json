@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "261470994016",
+    "firebase_url": "https://imagehide-89dfd.firebaseio.com",
+    "project_id": "imagehide-89dfd",
+    "storage_bucket": "imagehide-89dfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261470994016:android:ebb8b65fa666cbb5",
+        "android_client_info": {
+          "package_name": "com.example.vicky.imagehide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261470994016-vh8sa3jn2buf6jmh1f45kfel3m9fga40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4L3OsN4sNAlrwZR0qNvAI_qSx57KZo8E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
